@@ -18,8 +18,7 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
-@Service
-public class FirebaseUtil {
+/*public class FirebaseUtil {
 	// variável para guardar as credenciais do firebase
 	private Credentials credenciais;
 	// variavel para acessar o storage
@@ -76,4 +75,4 @@ public class FirebaseUtil {
 		storage.delete(blob.getBlobId());
 	}
 	
-}
+}*/  

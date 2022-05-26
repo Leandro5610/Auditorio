@@ -2,12 +2,14 @@ package senai.sp.cotia.auditorio.rest;
 import java.net.URI;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +29,7 @@ import senai.sp.cotia.auditorio.model.Erro;
 import senai.sp.cotia.auditorio.model.TokenJWT;
 import senai.sp.cotia.auditorio.model.Usuario;
 import senai.sp.cotia.auditorio.repository.UserRepository;
+import senai.sp.cotia.auditorio.type.StatusEvent;
 
 
 @RestController
@@ -51,11 +54,13 @@ public class UserRestController {
 //				return ResponseEntity.created(URI.create("/"+usuario.getId())).body(usuario);
 				
 			@Publico
-			@RequestMapping(value="/1/cadastrar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+			@RequestMapping(value="cadastrar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 			public Object criarUsuario(@RequestBody Usuario usuario) {
 					try {
 						// salvar o usuário no banco de dados
+						
 						repository.save(usuario);
+				
 						// retorna code 201 com a url para acesso no location e usuario inserido no corpo da resposta
 						return "Login";
 				
@@ -114,7 +119,7 @@ public class UserRestController {
 		@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<TokenJWT> logar(@RequestBody Usuario usuario) {
 			// buscar o usuario no BD
-			usuario = repository.findByNifAndSenha(usuario.getNif(), usuario.getSenha());
+			//usuario = repository.findByNifAndSenha(usuario.getNif(), usuario.getSenha());
 			// verifica se existe o usuario
 			if(usuario != null) {
 				// valores adicionais para o token
@@ -136,7 +141,7 @@ public class UserRestController {
 			}
 		}
 		
-		
+	
 		
 	
 
